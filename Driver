@@ -1,0 +1,591 @@
+import java.util.*;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Nick Bourgoin
+ */
+public class Driver {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner scan = new Scanner(System.in);
+        
+        Account[] myAccounts = new Account[15];
+        
+        //Creates all the account objects/firstName/LastName/Gender/Birthday/Type/Person/Balance
+        
+        //Student Accounts
+        Account student1 = new Account("Pat", "Kennedy", 'M', "06/04/2002", 'S', 'S');
+        Account student2 = new Account("Nick", "Bourgoin", 'M', "09/11/1999", 'S', 'S', 123.00);
+        Account student3 = new Account("Steve", "Rogers", 'M', "07/04/1776", 'C', 'S');
+        Account student4 = new Account("John", "Doe", 'M', "01/23/1999", 'C', 'S', 123.00);
+        Account student5 = new Account("Mickey", "Mouse", 'M', "06/12/2000", 'C', 'S');
+        
+        
+        //Faculty Accounts
+        Account faculty1 = new Account("Prof.", "Prasas", 'M', "01/23/1999", 'C', 'F');
+        Account faculty2 = new Account("Dr.", "Albina", 'M', "01/23/1999", 'S', 'F');
+        Account faculty3 = new Account("Prof.", "HighFive", 'M', "01/23/1999", 'C', 'F');
+        Account faculty4 = new Account("Dr.", "Albert", 'M', "01/23/1999", 'S', 'F');
+        Account faculty5 = new Account("Prof.", "Traynor", 'F', "01/23/1999", 'C', 'F');
+        
+        
+        //Employee Accounts
+        Account employee1 = new Account("Benny", "Roll", 'M', "01/23/1999", 'C', 'E', 438.28);
+        Account employee2 = new Account("Jess", "Doe", 'F', "01/24/1999", 'C', 'E', 438.28);
+        Account employee3 = new Account("Tom", "Ryan", 'M', "01/25/1999", 'C', 'E', 438.28);
+        Account employee4 = new Account("Ben", "Ryan", 'M', "07/25/1994", 'S', 'E', 438.28);
+        Account employee5 = new Account("Ben", "Stiller", 'M', "01/28/1998", 'S', 'E', 438.28);
+        
+        
+        //adds all the account objects to an array
+        myAccounts[0] = student1;
+        myAccounts[1] = student2;
+        myAccounts[2] = faculty1;
+        myAccounts[3] = faculty2;
+        myAccounts[4] = employee1;
+        myAccounts[5] = student3;
+        myAccounts[6] = student4;
+        myAccounts[7] = student5;
+        myAccounts[8] = faculty3;
+        myAccounts[9] = faculty4;
+        myAccounts[10] = faculty5;
+        myAccounts[11] = employee2;
+        myAccounts[12] = employee3;
+        myAccounts[13] = employee4;
+        myAccounts[14] = employee5;
+        
+        //Declaration of Values
+        int choice;
+        int acctChoice;
+        int acctTypeChoice;
+        double amount;
+        int finChoice;
+        String userFirstName;
+        String userLastName;
+        char userSex;
+        String userDOB;
+        char userType;
+        char userPerson;
+        double userBalance;
+        int numType;
+        String searchName;
+       
+        
+        //Selections for use in Application
+        System.out.println("Welcome to SAC Bank! Choose what you would like to do:");
+        
+        do{
+            System.out.println();
+            System.out.println("[1] Display all account information");
+            System.out.println("[2] Display total number of accounts");
+            System.out.println("[3] Open an account with some initial depost");
+            System.out.println("[4] Open an account with no deposit");
+            System.out.println("[5] Add interest to all accounts");
+            System.out.println("[6] Display all student accounts with a balance less than $100");
+            System.out.println("[7] Display all employee accounts with a balance more than $5000");
+            System.out.println("[8] Search for an account by last name and display their information");
+            System.out.println("[9] Display all savings accounts sorted by first name");
+            System.out.println("[10] Search for an account by first name");
+            System.out.println("[11] Display sorted list of all account numbers");
+            System.out.println("[0] Exit");
+            
+           
+            
+            choice = scan.nextInt();
+            
+            switch(choice){
+            
+            
+            
+                case 1: //Display all account information
+                    scan.nextLine();
+                    System.out.println(" Name,    Type, Person, Account Number, Balance");
+                    System.out.println("---------------------------------------------------------------------------------");
+                    for (Account myAccount : myAccounts) {
+                        System.out.println(myAccount.show());
+                    }
+                    System.out.println("---------------------------------------------------------------------------------");
+                    
+                    break;
+                    
+                    
+                    
+                case 2: //Display number of accounts (with sub-menu)
+                    scan.nextLine();
+                    System.out.println("Which type of accounts?");
+                    System.out.println("[1] Savings");
+                    System.out.println("[2] Checking");
+                    
+                    while(true){
+                        
+                        numType = scan.nextInt();
+             
+                        if(numType == 1){
+                            for (Account myAccount : myAccounts) {
+                                if (myAccount.getType() == 'S') {
+                                    numType++;
+                                }
+                            }
+                            System.out.println("There are " + numType + " savings accounts");
+                            break;
+                        }
+                        else if(numType == 2){
+                            for(Account myAccount : myAccounts){
+                                if (myAccount.getType() == 'C'){
+                                    numType++;
+                                }
+                            }
+                            System.out.println("There are " + numType + " checking accounts");
+                            break;
+                        }
+                        else{
+                            System.out.println("Invalid Choice. Please enter '1' or '2'");
+                        }
+                    }
+                    
+                    break;
+                
+                    
+                    
+                case 3: //Creates an account with an initial deposit
+                    scan.nextLine();
+                    
+                    System.out.println("Lets create an account ");
+                    System.out.println("Enter your first name: ");
+                    userFirstName =scan.nextLine();
+                	
+                    System.out.println("Enter your last name: ");
+                    userLastName =scan.nextLine();
+                	
+                    System.out.println("Enter your gender [M] or [F]: ");
+                    userSex =scan.nextLine().charAt(0);
+                	
+                    System.out.println("Enter your date of birth [mm/dd/yyyy]: (please enter the forawrd slashes)");
+                    userDOB =scan.nextLine();
+                	
+                    System.out.println("Enter your account type.");
+                    System.out.println("[S] Student");
+                    System.out.println("[F] Faculty");
+                    System.out.println("[E] Employee");
+                    userPerson =scan.nextLine().charAt(0);
+                	
+                    System.out.println("Enter your account type. ");
+                    System.out.println("[C] Checkings");
+                    System.out.println("[S] Savings");
+                    userType =scan.nextLine().charAt(0);
+                	
+                    System.out.println("Enter how much you wish to deposit: ");
+                    userBalance =scan.nextDouble();
+                	
+                    Account user1 = new Account(userFirstName, userLastName, userSex, userDOB, userType, userPerson, userBalance);
+                    
+                    Account[] temp = new Account[myAccounts.length + 1];
+                    for(int i=0; i < myAccounts.length; i++){
+                        temp[i] = myAccounts[i];
+                    }
+                    temp[15] = user1; 
+                    
+                    myAccounts = temp;
+
+                    break;
+                
+                    
+                    
+                case 4://Creates an Account with no initial deposit
+                    scan.nextLine();
+
+                    System.out.println("Lets create an account ");
+                    System.out.println("Enter your first name: ");
+                    userFirstName =scan.nextLine();
+                	
+                    System.out.println("Enter your last name: ");
+                    userLastName =scan.nextLine();
+                	
+                    System.out.println("Enter your gender [M] or [F]: ");
+                    userSex =scan.nextLine().charAt(0);
+                	
+                    System.out.println("Enter your date of birth [mm/dd/yyyy]: (please enter the forawrd slashes)");
+                    userDOB =scan.nextLine();
+                	
+                    System.out.println("Enter your account type.");
+                    System.out.println("[S] Student");
+                    System.out.println("[F] Faculty");
+                    System.out.println("[E] Employee");
+                    userPerson =scan.nextLine().charAt(0);
+                	
+                    System.out.println("Enter your account type. ");
+                    System.out.println("[C] Checkings");
+                    System.out.println("[S] Savings");
+                    userType =scan.nextLine().charAt(0);
+                    
+                    Account user2 = new Account(userFirstName, userLastName, userSex, userDOB, userType, userPerson);
+                    
+                    Account[] temp2 = new Account[myAccounts.length + 1];
+                    for(int i=0; i < myAccounts.length; i++){
+                        temp2[i] = myAccounts[i];
+                    }
+                    temp2[15] = user2; 
+                    
+                    myAccounts = temp2;
+                    
+                    break;
+                    
+                    
+                    
+                case 5: //Add interest to all accounts
+                    for (Account myAccount : myAccounts) {
+                        myAccount.addInterest();
+                    }
+                    System.out.println("Interest added to all accounts!");
+                    
+                    break;
+                    
+                    
+                    
+                case 6: //Displays all student accounts with balances less than $100
+                    System.out.println("All student accounts with balances less than $100: ");
+                    for (Account myAccount : myAccounts) {
+                        if (myAccount.getPerson() == 'S') {
+                            if (myAccount.getBalance() < 100.0) {
+                                System.out.println(myAccount.show());
+                            }
+                        }
+                    }
+                    
+                    break;
+                    
+                    
+                    
+                case 7: //Displays all employee accounts with balances more than $5000
+                    System.out.println("All employee accounts with balances more than $5000: ");
+                    for (Account myAccount : myAccounts) {
+                        if (myAccount.getPerson() == 'F' || myAccount.getPerson() == 'E') {
+                            if (myAccount.getBalance() > 5000.00) {
+                                System.out.println(myAccount.show());
+                            }
+                        }
+                    }
+                    
+                    break;
+                    
+                    
+                    
+                case 8://Lets you search for an account via last name
+                    scan.nextLine();
+                    
+                    int newChoice = 0;
+                    
+                    do{
+                        System.out.println("Enter the last name you want to search for: ");
+                        searchName = scan.nextLine();
+
+                        long start1 = System.nanoTime();
+                        int i = searchLast(searchName, myAccounts);
+                        long stop1 = System.nanoTime();
+                        long total1 = stop1 - start1;
+                        System.out.println("Time took for linear search: " + total1 + " nanoseconds.");
+
+                        if(i>=0){
+
+                            
+
+                            System.out.println("What would you like to do with this account?");
+
+                            System.out.println("[1] Check Balance");
+                            System.out.println("[2] Withdraw Money");
+                            System.out.println("[3] Deposit Money");
+                            System.out.println("[4] Add Interest");
+                            System.out.println("[5] Close (Delete the account)");
+                            System.out.println("[6] Return to main menu");
+                            
+                            newChoice = scan.nextInt();
+                            
+                            switch(newChoice){
+                                case 1:
+                                    System.out.println("Balance: " + myAccounts[i].getBalance());
+                                    
+                                    break;
+                                case 2:
+                                    while(true){
+                                        System.out.println("How much would you like to withdraw?");
+                                        amount = scan.nextDouble();
+                                        
+                                       if(amount > myAccounts[i].getBalance()){
+                                           System.out.println("Insufficient Funds");
+                                       }
+                                       else{
+                                           myAccounts[i].withdraw(amount);
+                                           System.out.println("New balance: " + myAccounts[i].getBalance());
+                                           break;
+                                       }
+                                    }
+                                    
+                                    break;
+                                    
+                                case 3:// Deposit to an account
+                                    System.out.println("How much would you like to deposit?");
+                                    amount = scan.nextDouble();
+                                    
+                                    myAccounts[i].deposit(amount);
+                                    
+                                    System.out.println("New balance: " + myAccounts[i].getBalance());
+                                    
+                                    break;
+                                
+                                case 4://Add interest to an account
+                                    myAccounts[i].addInterest();
+                                    System.out.println("Interest Added!");
+                                    System.out.println("New balance: " + myAccounts[i].getBalance());
+                                    
+                                    break;
+                                    
+                                case 5://Delete an account
+                                    Account[] tempArray = new Account[myAccounts.length - 1];
+                                    for(int j=0, x=0; j < myAccounts.length; j++){
+                                        if(j != i){
+                                            tempArray[x++] = myAccounts[j];
+                                        }
+                                    }
+
+                                    myAccounts = tempArray;
+                                    
+                                    System.out.println("Account deleted!");
+                                    
+                                    break;
+                                    
+                                case 6:
+                                    break;
+                            }
+                            
+                            
+                        }
+                        else{
+                            System.out.println("Last name not found");
+                        }
+                    
+                    }
+                    while(newChoice != 6);
+                    
+                    
+                    
+                case 9://Bubble sort accounts
+                    long start2 = System.nanoTime();
+                	
+                    bubbleSort(myAccounts);
+                    
+                    for (Account myAccount : myAccounts) {
+                        System.out.println(myAccount.show());
+                    }
+                    long stop2 = System.nanoTime();
+                    long total2 = stop2 - start2;
+                    System.out.println("The time it took to do the bubble sort was " + total2 + " nanoseconds.");
+                    
+                    break;
+                    
+                    
+                    
+                case 10://Binary Search Accounts by first name
+                    
+                    
+                    bubbleSort(myAccounts);
+                    String userInput;
+                    System.out.println("Please enter the first name of the account you wish to search: ");
+                    scan.nextLine();
+                    userInput = scan.nextLine();
+                    long startTime = System.nanoTime();
+                    int index = binarySearch(myAccounts, userInput);
+                    long endTime = System.nanoTime();
+                    
+                    long duration = (endTime - startTime);
+                    
+                    System.out.println("That search took " + duration + " nanoseconds");
+                   
+                    
+                    
+                    
+                    if(index > (-1)){
+                        myAccounts[index].show();
+                        System.out.println("What would you like to do with the account?");
+                        System.out.println("[1] Check Balance");
+                        System.out.println("[2] Withdraw Money");
+                        System.out.println("[3] Deposit Money");
+                        System.out.println("[4] Add Interest");
+                        System.out.println("[5] Close (Delete the account)");
+                        System.out.println("[6] Return to main menu");
+                        
+                        newChoice = scan.nextInt();
+                        switch(newChoice){
+                                case 1:
+                                    System.out.println("Balance: " + myAccounts[index].getBalance());
+                                    
+                                    break;
+                                case 2:
+                                    while(true){
+                                        System.out.println("How much would you like to withdraw?");
+                                        amount = scan.nextDouble();
+                                        
+                                       if(amount > myAccounts[index].getBalance()){
+                                           System.out.println("Insufficient Funds");
+                                       }
+                                       else{
+                                           myAccounts[index].withdraw(amount);
+                                           System.out.println("New balance: " + myAccounts[index].getBalance());
+                                           break;
+                                       }
+                                    }
+                                    
+                                    break;
+                                    
+                                case 3:// Deposit to an account
+                                    System.out.println("How much would you like to deposit?");
+                                    amount = scan.nextDouble();
+                                    
+                                    myAccounts[index].deposit(amount);
+                                    
+                                    System.out.println("New balance: " + myAccounts[index].getBalance());
+                                    
+                                    break;
+                                
+                                case 4://Add interest to an account
+                                    myAccounts[index].addInterest();
+                                    System.out.println("Interest Added!");
+                                    System.out.println("New balance: " + myAccounts[index].getBalance());
+                                    
+                                    break;
+                                    
+                                case 5://Delete an account
+                                    Account[] tempArray = new Account[myAccounts.length - 1];
+                                    for(int j=0, x=0; j < myAccounts.length; j++){
+                                        if(j != index){
+                                            tempArray[x++] = myAccounts[j];
+                                        }
+                                    }
+
+                                    myAccounts = tempArray;
+                                    
+                                    System.out.println("Account deleted!");
+                                    
+                                    break;
+                                    
+                                case 6:
+                                    break;
+                            }
+
+                    }
+                    else{
+                        System.out.println("No account was found with the entered name. Please try again.");
+                    }
+                   
+                    break;  
+                
+                    
+			case 11: //selection sort of account numbers
+                    start2 = System.nanoTime();
+                	
+                    selectionSort(myAccounts);
+                    
+                    for (Account myAccount : myAccounts) {
+                        System.out.println(myAccount.show());
+                    }
+                    stop2 = System.nanoTime();
+                    total2 = stop2 - start2;
+                    System.out.println("The time it took to do the selection sort was " + total2 + " nanoseconds.");
+                    
+                    break;
+            }
+        }
+        
+
+        while(choice != 0);
+        
+    }
+    
+    
+    //Search Last Name
+    public static int searchLast(String name, Account[] a){
+        int index = -1;
+        
+        for(int i=0; i<a.length; i++){
+            if(a[i].getLastName().equals(name)){
+                index = i;
+                break;
+            }
+        }
+        
+        return index;
+        
+    }
+    
+    //Bubble Sort
+    public static void bubbleSort(Account[] a){
+        int position, scan;
+        
+        for(position = a.length - 1; position >= 0; position --){
+            for(scan = 0; scan <= position - 1; scan ++){
+                String n1 = a[scan].getFirstName();
+                String n2 = a[scan+1].getFirstName();
+                if(n1.compareTo(n2) > 0){
+                    swap(a, scan, scan +1);
+                }
+            }
+        }
+    }
+    
+    //Selection Sort
+    public static void selectionSort(Account[] a){
+        int min;
+        
+        for(int index = 0; index < a.length-1; index++){
+            min = index;
+            for(int scan = index+1; scan < a.length; scan++){
+                int n1 = Integer.parseInt(a[scan].getAcctNum());
+                int n2 = Integer.parseInt(a[min].getAcctNum());
+                if (n2 > n1){
+                    min = scan;
+                }
+                swap(a, min, index);
+            }
+        }
+        
+    }
+    
+    //Account Swap Function
+    private static void swap(Account[] a, int index1, int index2){
+        Account temp = a[index1];
+        a[index1] = a[index2];
+        a[index2] = temp;
+    }
+    
+    
+    //Binary Sort 
+    public static int binarySearch(Account[] a, String x) {
+    	 int low = 0;
+         int high = a.length - 1;
+         int mid;
+
+         while (low <= high) {
+             mid = (low + high) / 2;
+
+             if (a[mid].getFirstName().compareTo(x) < 0) {
+                 low = mid + 1;
+             } else if (a[mid].getFirstName().compareTo(x) > 0) {
+                 high = mid - 1;
+             } else {
+                 return mid;
+             }
+         }
+
+         return -1;
+     }
+
+ }
+    
