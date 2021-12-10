@@ -1,0 +1,162 @@
+import java.util.*;
+
+/**
+ * 
+ * @author Nick Bourgoin
+ */
+public class Account {
+    private String firstName;
+    private String lastName;
+    private char sex;
+    private String DOB;
+    private String SSN;
+    private String acctNum;
+    private char type;
+    private char person;
+    private double balance;
+    
+//    Constructor method with a set balance
+    Account(String first, String last, char gen, String bday, char typ, char per, double bal){
+        firstName = first;
+        lastName = last;
+        sex = gen;
+        DOB = bday;
+        type = typ;
+        person = per;
+        balance = bal;
+        
+        SSN = generateSSN();
+        acctNum = generateAcctNum();
+    }
+    
+//    Constructor method with a balance of $0.00
+    Account(String first, String last, char gen, String bday, char typ, char per){
+        firstName = first;
+        lastName = last;
+        sex = gen;
+        DOB = bday;
+        type = typ;
+        person = per;
+        balance = 0.0;
+        
+        SSN = generateSSN();
+        acctNum = generateAcctNum();
+    }
+    
+//    Generates a random Social Security Number
+    private String generateSSN(){
+        Random r = new Random();
+        int num = r.nextInt(999999999);
+        
+        return String.format("%09d", num);
+    }
+    
+//    Generates a random Account Number
+    private String generateAcctNum(){
+        Random r = new Random();
+        int num = r.nextInt(99999);
+        
+        return String.format("%05d", num);
+    }
+    
+    public void setFirstName(String name){
+        firstName = name;
+    }
+    
+    public String getFirstName(){
+        return firstName;
+    }
+    
+    public void setLastName(String name){
+        lastName = name;
+    }
+    
+    public String getLastName(){
+        return lastName;
+    }
+    
+    public void setSex(char s){
+        sex = s;
+    }
+    
+    public char getSex(){
+        return sex;
+    }
+    
+    public void setDOB(String bday){
+        DOB = bday;
+    }
+    
+    public String getDOB(){
+        return DOB;
+    }
+    
+    public String getAcctNum(){
+        return acctNum;
+    }
+    
+    public String getSSN(){
+//        returns last 4 digits of SSN
+        return SSN.substring(SSN.length() - 4);
+    }
+    
+    public void setType(char t){
+        type = t;
+    }
+    
+    public char getType(){
+        return type;
+    }
+    
+    public void setPerson(char p){
+        person = p;
+    }
+    
+    public char getPerson(){
+        return person;
+    }
+    
+    public void setBalance(double bal){
+        balance = bal;
+    }
+    
+    public double getBalance(){
+        return balance;
+    }
+    
+    public void deposit(double amt){
+        balance += amt;
+    }
+    
+    public void withdraw(double amt){
+        balance -= amt;
+    }
+    
+    public void addInterest(){
+        balance += (balance * 0.02);
+    }
+    
+    public String show(){
+        String myAcct = (lastName + ", " + firstName + "\t" + type + "\t" + person + "\t" + acctNum + "\t\t" + balance);
+        return myAcct;
+    }
+    
+    public void deleteAccount() {
+    	firstName = null;
+        lastName = null;
+        sex = ' ';
+        DOB = null;
+        type = ' ';
+        person = ' ';
+        SSN = null;
+        acctNum = null;
+        balance = 0;
+    	
+    }
+
+	public int compareTo(String x) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+    
+}
